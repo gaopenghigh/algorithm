@@ -16,21 +16,126 @@
 # 同理，如果轮到右边口袋增加数字，先把新的数字放左边，然后从左边中挑出最大的一个来放到右边即可。
 # 左边口袋可以用大根堆，右边口袋可以用小根堆。
 
-
-class MedianFinder:
-
-    def __init__(self):
-        pass
-
-    def addNum(self, num: int) -> None:
-        pass
-
-    def findMedian(self) -> float:
-        pass
-
-
-
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
 # obj.addNum(num)
 # param_2 = obj.findMedian()
+class MedianFinder:
+
+    def __init__(self):
+        self.left = MaxHeap()
+        self.right = MinHeap()
+        self.leftOrder = True
+
+    def addNum(self, num: int) -> None:
+        if self.leftOrder:
+            self.right.push(num)
+            self.left.push(self.right.pop())
+        else:
+            self.left.push(num)
+            self.right.push(self.left.pop())
+        self.leftOrder = not self.leftOrder
+
+    def findMedian(self) -> float:
+        if self.leftOrder: # 左右个数一致
+            return (self.left.top() + self.right.top()) / 2.0
+        else:
+            return self.left.top()
+
+
+class MinHeap:
+    def __init__(self) -> None:
+        self.data = []
+    
+    def _swim(self, i):
+        while (i - 1) // 2 >= 0:
+            parent = (i-1)//2
+            if self.data[parent] > self.data[i]:
+                self.data[parent], self.data[i] = self.data[i], self.data[parent]
+                i = parent
+            else:
+                break
+
+    def _sink(self, i):
+        n = len(self.data)
+        while i * 2 + 1 <= n - 1:
+            smallest = i
+            left = i * 2 + 1
+            right = i * 2 + 2
+            if left <= n - 1 and self.data[left] < self.data[smallest]:
+                smallest = left
+            if right <= n - 1 and self.data[right] < self.data[smallest]:
+                smallest = right
+            if smallest != i:
+                self.data[smallest], self.data[i] = self.data[i], self.data[smallest]
+                i = smallest
+            else:
+                break
+    
+    def pop(self):
+        r = self.data[0]
+        n = len(self.data)
+        self.data[0], self.data[n-1] = self.data[n-1], self.data[0]
+        self.data.pop()
+        self._sink(0)
+        return r
+
+    def top(self):
+        return self.data[0]
+    
+    def push(self, v):
+        self.data.append(v)
+        self._swim(len(self.data) - 1)
+
+class MaxHeap:
+    def __init__(self) -> None:
+        self.data = []
+    
+    def _swim(self, i):
+        while (i - 1) // 2 >= 0:
+            parent = (i-1)//2
+            if self.data[parent] < self.data[i]:
+                self.data[parent], self.data[i] = self.data[i], self.data[parent]
+                i = parent
+            else:
+                break
+
+    def _sink(self, i):
+        n = len(self.data)
+        while i * 2 + 1 <= n - 1:
+            biggest = i
+            left = i * 2 + 1
+            right = i * 2 + 2
+            if left <= n - 1 and self.data[left] > self.data[biggest]:
+                biggest = left
+            if right <= n - 1 and self.data[right] > self.data[biggest]:
+                biggest = right
+            if biggest != i:
+                self.data[biggest], self.data[i] = self.data[i], self.data[biggest]
+                i = biggest
+            else:
+                break
+    
+    def pop(self):
+        r = self.data[0]
+        n = len(self.data)
+        self.data[0], self.data[n-1] = self.data[n-1], self.data[0]
+        self.data.pop()
+        self._sink(0)
+        return r
+
+    def top(self):
+        return self.data[0]
+    
+    def push(self, v):
+        self.data.append(v)
+        self._swim(len(self.data) - 1)
+    
+
+
+if __name__ == '__main__':
+    f = MedianFinder()
+    f.addNum(3)
+    f.addNum(1)
+    f.addNum(2)
+    print(f.findMedian())
