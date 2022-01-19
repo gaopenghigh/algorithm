@@ -15,6 +15,23 @@
 # 输入：nums = [7,7,7,7,7,7,7]
 # 输出：1
 
+# 动态规划问题。
+# dp[i] 表示以 i 结尾的最长严格递增子序列的长度，显然 dp[0] = 1，dp[i] 最小值为 1
+# d[i] 的计算方式为：
+# d[i] = max([dp[j] + 1 for j in range(0, i) if nums[j] < nums[i]])
 
 class Solution:
-    def lengthOfLIS(self, nums: List[int]) -> int:
+    def lengthOfLIS(self, nums: list[int]) -> int:
+        dp = [1 for _ in range(len(nums))]
+        for i in range(1, len(nums)):
+            for j in range(0, i):
+                if nums[j] < nums[i]:
+                    dp[i] = max([dp[i], dp[j] + 1])
+        return max(dp)
+
+
+if __name__ == '__main__':
+    s = Solution()
+    nums = [10,9,2,5,3,7,101,18]
+    nums = [7,7,7,7,7,7,7]
+    print(s.lengthOfLIS(nums))
