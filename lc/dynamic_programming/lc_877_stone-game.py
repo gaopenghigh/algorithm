@@ -24,5 +24,13 @@
 # 1 <= piles[i] <= 500
 # sum(piles[i]) 是 奇数
 
+# 同 486 题，但这题可以直接推导出先手必胜的结论
+# 将这些石子堆按照其编号分作两组，一组编号为奇数，另一组编号为偶数，由于限制条件中总石子个数为奇数，所以要么奇数堆石子更多，要么偶数对石子更多。
+# 如果 Alice 取左边第一堆，也就是堆 1，即编号为奇数的堆（编号从 1 开始），那么 Bob 可以选择第 2 堆或者最后一堆，
+# 如果 Bob 选择的是 堆 2，则 Alice 可以选择 堆 3 或者 最后一堆，
+# 如果 Bob 选择的是 最后一堆，由于限制条件中总堆数为偶数，所以 Bob 选择的肯定是偶数堆，则 Alice 可以选择堆 2 或 倒数第二堆，倒数第二堆一定是奇数堆
+# 所以，Alice 有办法选择自己是需要偶数堆还是奇数堆，所以 Alice 必胜。
+
 class Solution:
-    def stoneGame(self, piles: List[int]) -> bool:
+    def stoneGame(self, piles: list[int]) -> bool:
+        return True
