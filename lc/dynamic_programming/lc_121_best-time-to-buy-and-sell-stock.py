@@ -5,6 +5,8 @@
 
 # 188 题的特殊形式
 
+import sys
+
 class Solution:
     def __init__(self) -> None:
         self.cache = {}
