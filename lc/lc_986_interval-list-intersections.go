@@ -17,6 +17,7 @@
 /**
 使用双指针
 */
+package main
 
 func intervalIntersection(firstList [][]int, secondList [][]int) [][]int {
 	res := [][]int{}
