@@ -9,8 +9,8 @@
 
 /**
 题目可以变形为，在 2n 的位置上，从 n 个 '(' 和 n 个 ')' 中选择符号进行放置，找到所有的合法组合。
-通过的方法判断是否合法：
-在任一一个位置 i，考察它前面的部分， '(' 的个数一定 >= ')' 的个数；
+通过如下方法判断是否合法：
+在任意一个位置 i，考察它前面的部分， '(' 的个数一定 >= ')' 的个数；
 回溯算法中，“选择”就是针对每个位置，选择 ( 或者选择 )，”可选列表“就是剩下的 ( 和 )
 */
 
@@ -32,7 +32,7 @@ func generateParenthesis(n int) []string {
 
 // left 和 right 表示当前还能选的 ( 数和 ) 数
 func backtrack(n int, res *[]string, track *[]string, left, right int) {
-	if left == right && left == 0 {
+	if left == 0 && right == 0 {
 		s := strings.Join(*track, "")
 		*res = append(*res, s)
 		return

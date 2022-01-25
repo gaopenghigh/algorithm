@@ -1,7 +1,7 @@
 # 19. 删除链表的倒数第 N 个结点
 # 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点
 
-# 使用双指针，fast 比 slow 快 n 步
+# 使用双指针，fast 比 slow 快 n 步，同时使用 dummy header 技巧
 
 class ListNode:
     def __init__(self, val=0, next=None):

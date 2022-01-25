@@ -34,8 +34,22 @@ class Solution:
             want = target - num
             m[want] = i
 
+# 如果对空间复杂度有要求，同时要求返回的不是下标而是具体的数字，就对数组先排序，然后使用双指针
+class Solution2:
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
+        nums.sort()
+        left, right = 0, len(nums) - 1
+        while left < right:
+            r = nums[left] + nums[right]
+            if r == target:
+                return nums[left], nums[right]
+            if r < target:
+                left +=1
+            elif r > target:
+                right -= 1
+
 
 if __name__ == '__main__':
     nums = [3, 2, 3]
     target = 6
-    print(Solution().twoSum(nums, target))
+    print(Solution2().twoSum(nums, target))

@@ -33,7 +33,10 @@
 # 链接：https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
 
 
+# 每 k 个节点为一组，记录这一组之前的节点 pre 和这一组之后的节点 next
+# 然后将这一组链表翻转，得到 head 和 tail，然后设置 pre.next = head, tail.next = next, pre = tail
 # 一个技巧就是添加一个“假”的 head
+# 子链表的翻转，可以原地翻转，或者使用一个栈进行翻转
 
 # Definition for singly-linked list.
 class ListNode:
@@ -83,26 +86,32 @@ class Solution:
 class Solution2:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
         stack = []
-        fackHead = ListNode(-1)
-        fackHead.next = head
-        pre = fackHead
+        dummy = ListNode(-1)
+        dummy.next = head
+        pre = dummy
         curr = head
         while curr is not None:
             next = curr.next
             stack.append(curr)
             if len(stack) == k:
-                group_head = stack.pop()
-                node = group_head
-                while len(stack) > 0:
-                    node.next = stack.pop()
-                    node = node.next
+                group_head, group_tail = self._list_in_stack(stack)
                 pre.next = group_head
-                pre = node
-                pre.next = None
+                pre = group_tail
             curr = next
         if len(stack) > 0:
             pre.next = stack[0]
-        return fackHead.next
+        return dummy.next
+    
+    # 从 stack 中逐个弹出元素组成链表，返回头和尾
+    def _list_in_stack(self, stack):
+        head = stack.pop()
+        pre = head
+        while len(stack) > 0:
+            node = stack.pop()
+            pre.next = node
+            pre = node
+        pre.next = None
+        return head, pre
 
 def _print_node(head):
     vals = []
@@ -114,12 +123,12 @@ def _print_node(head):
 if __name__ == '__main__':
     head = ListNode(1)
     n = head
-    for i in range(2, 6):
+    for i in range(2, 7):
         n.next = ListNode(i)
         n = n.next
     _print_node(head)
     print('----')
 
-    head = Solution().reverseKGroup(head, 2)
+    head = Solution2().reverseKGroup(head, 3)
     print('----')
     _print_node(head)
