@@ -49,9 +49,9 @@
 #         撤销选择
 # 
 # 本题还有如下条件：
-# 1. 元素可以重复使用；
-# 2. 只考虑组合而不必考虑顺序
-# 3. 通过事先将数组排序可以做一定的优化
+# 1. 只考虑组合而不必考虑顺序
+# 2. 通过事先将数组排序可以做一定的优化
+
 class Solution:
     def __init__(self) -> None:
         self.result = []
@@ -61,19 +61,20 @@ class Solution:
         self.backtrack(candidates, 0, [], target)
         return self.result
     
-    def backtrack(self, candidates, index, track, target):
+    def backtrack(self, candidates: list[int], index: int, track: list[int], target: int):
         if target < 0:
             return
         if target == 0:
             self.result.append([e for e in track])
             return
         
+        # 由于已经实现排好序，我们要找的值是 <= target 的
+        # 所以当 track 中的最后一个元素已经大于 target 时，再往后找已经不可能找到更小的值了
         if track and target < track[-1]:
             return
         
-        n = len(candidates)
-        i = index
-        for i in range(index, n):
+        # 只需要组合而不是排列，所以只需要往后看, i 从 index 开始
+        for i in range(index, len(candidates)):
             num = candidates[i]
             track.append(num)
             self.backtrack(candidates, i, track, target - num)
