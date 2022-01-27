@@ -25,7 +25,14 @@
 
 # 网上大多数的解法以及 LeetCode 官方的解法都不够直观，不容易理解。
 # 下面的解法更容易理解，时间复杂度也一样，代码稍微复杂一点点，但容易理解多了。
-# 思路可以参考 http://github.tiankonguse.com/blog/2019/05/24/so-easy-lca-binary-tree.html
+# 如果 node 是 p 和 q 的最小公共祖先，有几种情况：
+# 1. node 就是 p，然后以 node.left 或 node.right 为根的树中包含了 q
+# 2. node 就是 q，然后以 node.left 或 node.right 为根的树中包含了 p
+# 3. node != p 并且 node != q，以 node.left 为根的树中包含了 p，以 node.right 为根的树中包含了 q
+# 4. node != p 并且 node != q，以 node.left 为根的树中包含了 q，以 node.right 为根的树中包含了 p
+# 所以可以看到，问题可以分解为对 root 本身的比较，以及对它左右子树的判断：
+# 如果在左右子树中分别找到了 p 和 q，那 root 肯定是最小公共祖先
+# 如果 root 自己就是 p 和 q 之一，并且在左右子树中找到了另外一个，则 root 也是最小公共祖先
 
 # Definition for a binary tree node.
 class TreeNode:

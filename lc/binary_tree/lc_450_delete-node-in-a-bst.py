@@ -26,8 +26,6 @@ class Solution:
                 return root.left
             
             left = root.left
-            right = root.right
-
             smallest, newRight = self.pop_smallest(root.right)
             smallest.left = left
             smallest.right = newRight

@@ -74,6 +74,7 @@ class LRUCache:
         self.tail.pre = node.pre
         self.keys.pop(node.key)
         del(node)
+        self.size -= 1
     
     def _print_data(self):
         node = self.head

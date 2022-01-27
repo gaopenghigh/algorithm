@@ -11,6 +11,17 @@
 # 输入：height = [4,2,0,3,2,5]
 # 输出：9
 
+# 考虑格子 i，它的高度为 height[i]，找到它左边最高的柱子的高度 lMax, 再找到它右边最高的柱子的高度 rMax，
+# 则这个格子能装的水为 min(lMax, rMax) - height[i]，如果是负值则能装的水为 0.
+# 所以可以将每个格子左边最高的柱子高度和右边最高的柱子高度记录下来，存为 lMax[i] 和 rMax[i]
+# 则格子 i 能装的水为:
+# r = min(lMax[i], rMax[i]) - height[i]
+# if r < 0:
+#     r = 0
+# 上面的方法时间复杂度为 O(n)，空间复杂度也为 O(n)
+# 
+# 进一步思考， 
+
 
 class Solution:
     def trap(self, height: list[int]) -> int:

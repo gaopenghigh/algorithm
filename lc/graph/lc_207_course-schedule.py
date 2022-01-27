@@ -5,6 +5,17 @@
 # 请你判断是否可能完成所有课程的学习？如果可以，返回 true ；否则，返回 false 。
 
 # 抽象为判断一幅有向图是否有环
+# 抽象为判断一幅有向图是否有环
+# 使用 DFS 遍历
+# 不能简单地记录哪些顶点已经遍历过了，遍历碰到一个曾经遍历过的顶点，并不代表有环
+# 比如下图：
+# A -> B -> C <--+
+# |______________|
+# 从 B 到 C 的时候发现 C 已经被遍历过了，因为有直接从 A 到 C 的边，但并没有环
+# 所以需要记录“当前遍历路径”上的顶点，也就是在递归栈上的顶点，这些顶点是“正在被搜索”的状态
+#
+# 使用邻接表来表示图
+# 使用 2 个集合，一个存放“正在被搜索”的顶点，一个存放“还没被遍历到”的顶点
 
 class Solution:
     def __init__(self) -> None:
@@ -40,6 +51,7 @@ class Solution:
         for i in range(self.n):
             unsearched.add(i)
 
+        # 这个图不一定是全连通的，所以需要每个节点都尝试一下
         for i in range(self.n):
             if i in unsearched:
                 if self.has_cycle_dfs(i, unsearched, searching):

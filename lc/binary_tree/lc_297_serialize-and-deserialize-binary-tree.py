@@ -9,6 +9,7 @@
 # ans = deser.deserialize(ser.serialize(root))
 
 # 使用前序遍历或后序遍历即可完成序列化，在序列化时将 None 也序列化为某个特殊字符，就可以实现反序列化。
+# 中序不行，因为无法确定 root 在什么位置
 
 # Definition for a binary tree node.
 class TreeNode(object):
