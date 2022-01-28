@@ -82,28 +82,11 @@ class Solution:
         if root is None:
             return -sys.maxsize
         if root in self.cache:
-            res = self.cache[root]
-            return res
-        
-        res = None
-        if root.left is None and root.right is None:
-            res = root.val
-        elif root.left is None and root.right is not None:
-            res = max(
-                root.val,
-                root.val + self.dp(root.right),
-            )
-        elif root.right is None and root.left is not None:
-            res = max(
-                root.val,
-                root.val + self.dp(root.left),
-            )
-        else: # left 和 right 都不是 None
-            res = max(
-                root.val,
-                self.dp(root.left) + root.val,
-                self.dp(root.right) + root.val,
-            )
+            return self.cache[root]
+        res = max(
+            max(self.dp(root.left), 0),
+            max(self.dp(root.right), 0)
+        ) + root.val
         self.cache[root] = res
         return res
 
