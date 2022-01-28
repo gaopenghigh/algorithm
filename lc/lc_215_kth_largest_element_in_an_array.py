@@ -26,8 +26,6 @@
 #    显然这就是一个大小为 K 的小根堆，在构建过程中，如果大小大于 k， 则弹出最小的元素后继续，完成后堆顶元素即是所需答案。
 # 4. 借助快速排序的方法。相对于整体全部排序，我们想要的是找到一个位置，排在它左边的都比它小，排在它右边的都比它大。这一点很像快速排序的原理，所以可以稍微调整快速排序的方法，让 pivot 逐渐地靠近倒数第 k 个位置。
 
-from cgitb import small
-
 
 class Solution:
     def findKthLargest(self, nums: list[int], k: int) -> int:
