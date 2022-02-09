@@ -10,10 +10,6 @@ import "fmt"
 func combine(n int, k int) [][]int {
 	res := [][]int{}
 	track := []int{}
-	used := make(map[int]bool, n)
-	for i := 1; i <= n; i++ {
-		used[i] = false
-	}
 	backtrack(n, k, &res, &track, 1)
 	return res
 }

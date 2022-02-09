@@ -13,18 +13,19 @@ class TreeNode:
 class Solution:
     def __init__(self) -> None:
         self.rank = 0
-        self.res = None
 
     def kthSmallest(self, root: TreeNode, k: int) -> int:
-        self.traverse(root, k)
-        return self.res
+        return self.traverse(root, k)
 
     def traverse(self, root, k):
         if root is None:
             return None
-        self.traverse(root.left, k)
+        res = self.traverse(root.left, k)
+        if res is not None:
+            return res
         self.rank += 1
         if self.rank == k:
-            self.res = root.val
-            return
-        self.traverse(root.right, k)
+            return root.val
+        res = self.traverse(root.right, k)
+        if res is not None:
+            return res
