@@ -84,7 +84,6 @@ class Graph:
             prob_to_curr, curr = h.pop()
             # print(f'--- curr={curr}')
             if curr == end:
-                print(f'FFFFFFFFFFFFF {count}')
                 return self._full_path(start, end, path_to), prob_to_curr 
             for adj in self.adjs(curr):
                 prob_curr_to_v, v = adj

@@ -10,6 +10,9 @@
 # 
 # 链接：https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof
 
+# 最直观的方法就是使用一个 map 存储出现过的数字
+# 一个优化的方式是利用“长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内”的条件，使用 index 来标记出现过的数字。
+
 class Solution:
     def findRepeatNumber(self, nums: list[int]) -> int:
         n = len(nums)
