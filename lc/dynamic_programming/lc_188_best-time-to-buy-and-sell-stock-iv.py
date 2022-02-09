@@ -23,7 +23,7 @@
 # 定义 dp 函数 dp(x, y, have) = m ，表示在 前 x 天内，在最多进行 y 次交易的限制下，并且第 x 天一定持有（have=True）或 不持有（have=False）的情况下，最大能获取的利益。
 # 则
 # dp(x, y, True) = max( dp(x-1, y, True),          dp(x-1, y-1, False) - prices[x])
-#                       昨天就持有，今天什么也不做     昨天每持有，今天买的
+#                       昨天就持有，今天什么也不做     昨天没持有，今天买的
 # dp(x, y, False) = max( dp(x-1, y, False),        dp(x-1, y, True) + price[x])
 #                       昨天就不持有，今天什么也不做    昨天持有，今天卖掉了
 # base case:

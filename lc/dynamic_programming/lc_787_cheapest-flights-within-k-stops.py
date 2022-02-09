@@ -33,7 +33,7 @@ class Solution:
             self.flights_to[end].append((start, p))
         return self.dp(dst, k+1)
     
-    # 经过 n 次飞行（n-1) 次中转从 self.src 到达 d 的最便宜票价和
+    # 经过 n 次飞行（n-1 次中转）从 self.src 到达 d 的最便宜票价和
     def dp(self, d, n):
         if d == self.src:
             return 0

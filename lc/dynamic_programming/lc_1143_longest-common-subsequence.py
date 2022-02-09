@@ -26,7 +26,7 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         dp = [[0 for _ in range(len(text2) + 1)] for _ in range(len(text1) + 1)]
-        # 针对 text1 和 teext2 的每一个字符，考虑它是否在最长子序列中
+        # 针对 text1 和 text2 的每一个字符，考虑它是否在最长子序列中
         for i in range(1, len(text1)+1):
             for j in range(1, len(text2)+1):
                 # text[1] 和 text2[j] 肯定在最长子序列中
