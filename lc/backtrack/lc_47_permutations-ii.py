@@ -15,6 +15,33 @@
 
 # 和 46 题类似，使用标准回溯方法，唯一的变化是可能包含重复数字，而需要返回的是不重复的全排列。
 
+from collections import defaultdict
 
 class Solution:
-    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+    def __init__(self) -> None:
+        self.res = []
+        self.nums = None
+        self.used = defaultdict(lambda : False)
+
+    def permuteUnique(self, nums: list[int]) -> list[list[int]]:
+        nums.sort()
+        self.nums = nums
+        self.backtrack([])
+        return self.res
+    
+    def backtrack(self, track):
+        if len(track) == len(self.nums):
+            self.res.append(track[:])
+            return
+        for i in range(len(self.nums)):
+            if self.used[i]:
+                continue
+            if i >= 1 and self.nums[i] == self.nums[i-1] and not self.used[i-1]:
+                continue
+
+            track.append(self.nums[i])
+            self.used[i] = True
+            self.backtrack(track)
+            track.pop()
+            self.used[i] = False
+
