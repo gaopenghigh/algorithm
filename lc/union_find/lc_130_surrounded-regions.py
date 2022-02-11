@@ -2,7 +2,7 @@
 # 给你一个 m x n 的矩阵 board ，由若干字符 'X' 和 'O' ，找到所有被 'X' 围绕的区域，并将这些区域里所有的 'O' 用 'X' 填充。
  
 # 使用并查集（https://blog.csdn.net/the_ZED/article/details/105126583），找到 4 条边上的 O，将他们和某个 dummy 连接起来，
-# 然后逐个找剩下的格子，如果是 O，就与它的上下左右的格子连接起来，最后遍历一次所有格子，如果是 O 并且没有和 dummy 连接，则将它改为 X
+# 然后逐个找剩下的格子，如果是 O，就与它的上下左右的内容为 O 的格子连接起来，最后遍历一次所有格子，如果是 O 并且没有和 dummy 连接，则将它改为 X
 
 class Solution:
     def solve(self, board: list[list[str]]) -> None:

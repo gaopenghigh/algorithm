@@ -36,7 +36,7 @@ class Twitter:
         while len(res) < n and not pq.empty():
             w, tId, uId = pq.get()
             res.append(tId)
-            index[uId] -= 1
+            index[uId] -= 2
             if index[uId] >= 0:
                 pq.put(self.tweets[uId][index[uId]])
         return res
