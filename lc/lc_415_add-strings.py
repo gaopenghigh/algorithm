@@ -17,4 +17,40 @@
 
 class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
-        pass
+        res = []
+        i, j = len(num1) - 1, len(num2) - 1
+        up = 0
+        while i >= 0 and j >= 0:
+            r = int(num1[i]) + int(num2[j]) + up
+            i -= 1
+            j -= 1
+            up = 0
+            if r > 9:
+                r = r - 10
+                up = 1
+            res.append(r)
+        while i >= 0:
+            r = int(num1[i]) + up
+            i -= 1
+            up = 0
+            if r > 9:
+                r = r - 10
+                up = 1
+            res.append(r)
+        while j >= 0:
+            r = int(num2[j]) + up
+            j -= 1
+            up = 0
+            if r > 9:
+                r = r - 10
+                up = 1
+            res.append(r)
+        if up > 0:
+            res.append(up)
+        res.reverse()
+        return ''.join([str(s) for s in res])
+
+if __name__ == '__main__':
+    num1 = "456"
+    num2 = "77"
+    print(Solution().addStrings(num1, num2))
