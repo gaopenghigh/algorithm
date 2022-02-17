@@ -16,5 +16,18 @@
 # 输出: [["a"]]
 
 
+# 排序 + map
+
+from collections import defaultdict
+
 class Solution:
     def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+        m = defaultdict(lambda:[])
+        for s in strs:
+            sortedStr = ''.join(sorted(list(s)))
+            m[sortedStr].append(s)
+        return list(m.values())
+
+if __name__ == '__main__':
+    strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    print(Solution().groupAnagrams(strs))
