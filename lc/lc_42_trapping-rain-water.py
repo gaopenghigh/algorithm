@@ -20,8 +20,28 @@
 #     r = 0
 # 上面的方法时间复杂度为 O(n)，空间复杂度也为 O(n)
 # 
-# 进一步思考， 
-
 
 class Solution:
+    # 暴力解法
+    # 对于格子 i，lMax 表示它左边最高的柱子，rMax 表示它右边最高的柱子，则格子 i 能接的雨水量为 max(min(l_max, r_max) - height[i], 0)
+    # 而 lMax = max(height[:i]), rMax = max(height[i+1:])
     def trap(self, height: list[int]) -> int:
+        r = 0
+        for i in range(1, len(height)-1):
+            w = max(0, min(max(height[:i]), max(height[i+1:])) - height[i])
+            r += w
+        return r
+    
+    # 实现计算出每个格子左边和右边的最高柱子的高度
+    def trap2(self, height: list[int]) -> int:
+        lMax = [0 for _ in range(len(height))]
+        rMax = [0 for _ in range(len(height))]
+        for i in range(1, len(height)):
+            lMax[i] = max(lMax[i-1], height[i-1])
+        for i in range(len(height)-2, -1, -1):
+            rMax[i] = max(rMax[i+1], height[i+1])
+        r = 0
+        for i in range(1, len(height)-1):
+            w = max(0, min(lMax[i], rMax[i]) - height[i])
+            r += w
+        return r
